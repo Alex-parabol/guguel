@@ -7,7 +7,7 @@ export const ResultContextProvider = ({ children }) => {
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('dog');
 
 
     //type of results being video, news, search...
@@ -20,7 +20,7 @@ export const ResultContextProvider = ({ children }) => {
                 'X-User-Agent': 'desktop',
                 'X-RapidAPI-Key': '61ec8ff567msh8628137f983d9efp127d4bjsnfaf503f50cc3',
                 'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
-              }
+            }
         });
         const data = await response.json()
         console.log(data)
