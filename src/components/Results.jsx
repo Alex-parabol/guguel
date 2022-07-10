@@ -9,7 +9,6 @@ export const Results = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location.pathname);
     if (searchTerm !== "") {
       if (location.pathname === "/videos") {
         getResults(`/search/q=${searchTerm} videos`);
@@ -20,7 +19,7 @@ export const Results = () => {
   }, [searchTerm, location.pathname]);
 
   if (isLoading) return <Loading />;
-  console.log(location.pathname);
+  
 
   switch (location.pathname) {
     case "/search":
@@ -43,20 +42,18 @@ export const Results = () => {
     case "/image":
       return (
         <div className="flex flex-wrap justify-center items-center">
-          {results?.map(
-            ({ image, link: { href, title } }, index) => (
-              <a
-                href={href}
-                target="_blank"
-                key={index}
-                rel="noreferrer"
-                className="sm:p-3 p-5"
-              >
-                <img src={image?.src} alt={title} loading="lazy" />
-                <p className="sm:w-36 w-36 break-words text-sm mt-2">{title}</p>
-              </a>
-            )
-          )}
+          {results?.map(({ image, link: { href, title } }, index) => (
+            <a
+              href={href}
+              target="_blank"
+              key={index}
+              rel="noreferrer"
+              className="sm:p-3 p-5"
+            >
+              <img src={image?.src} alt={title} loading="lazy" />
+              <p className="sm:w-36 w-36 break-words text-sm mt-2">{title}</p>
+            </a>
+          ))}
         </div>
       );
     case "/news":
@@ -64,19 +61,21 @@ export const Results = () => {
         <div className="flex flex-wrap justify-between space-y-6 sm:px-56 items-center">
           {results?.map(({ link, id, source, title }) => (
             <div key={id} className="md:w-2/5 w-full">
-              <a href={link} target="_blank" rel="noreferrer" className='hover:underline'>
-                <p className="text-sm">
-                  {link.length > 30 ? link.substring(0, 30) : link}
-                </p>
+              <a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
                 <p className="text-lg dark:text-blue-300 text-blue-700">
                   {title}
                 </p>
-                <div className="flex gap-4">
-                  <a href={source?.href} target='_blank' rel='noreferrer'>
-                    {source.href}
-                  </a>
-                </div>
               </a>
+              <div className="flex gap-4">
+                <a href={source?.href} target="_blank" rel="noreferrer">
+                  {source.href}
+                </a>
+              </div>
             </div>
           ))}
         </div>
@@ -84,13 +83,18 @@ export const Results = () => {
     case "/videos":
       return (
         <div className="flex flex-wrap">
-          {results.map((video, index)=> (
+          {results.map((video, index) => (
             <div key={index} className="p-2">
-              <ReactPlayer url={video.link} controls width='455px' height='px'/>
-            </div> 
+              <ReactPlayer
+                url={video.link}
+                controls
+                width="455px"
+                height="280px"
+              />
+            </div>
           ))}
         </div>
-      )
+      );
     default:
       return "Error";
   }
