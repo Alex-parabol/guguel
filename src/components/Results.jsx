@@ -19,13 +19,12 @@ export const Results = () => {
   }, [searchTerm, location.pathname]);
 
   if (isLoading) return <Loading />;
-  
 
   switch (location.pathname) {
     case "/search":
       return (
         <div className="flex flex-wrap justify-between space-y-6 sm:px-56">
-          {results.map(({ link, title }, index) => (
+          {results?.map(({ link, title }, index) => (
             <div key={index} className="md:w-2/5 w-full">
               <a href={link} target="_blank" rel="noreferrer">
                 <p className="text-sm">
@@ -73,7 +72,7 @@ export const Results = () => {
               </a>
               <div className="flex gap-4">
                 <a href={source?.href} target="_blank" rel="noreferrer">
-                  {source.href}
+                  {source?.href}
                 </a>
               </div>
             </div>
@@ -82,7 +81,7 @@ export const Results = () => {
       );
     case "/videos":
       return (
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap justify-center">
           {results.map((video, index) => (
             <div key={index} className="p-2">
               <ReactPlayer

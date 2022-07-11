@@ -7,7 +7,7 @@ export const ResultContextProvider = ({ children }) => {
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-    const [searchTerm, setSearchTerm] = useState('funny');
+    const [searchTerm, setSearchTerm] = useState('');
 
 
     //type of results being video, news, search...
@@ -23,20 +23,20 @@ export const ResultContextProvider = ({ children }) => {
             }
         });
         const data = await response.json()
-        if(type.includes('/news')){
+        if (type.includes('/news')) {
             setResults(data.entries)
-        } else if(type.includes('/image')){
+        } else if (type.includes('/image')) {
             setResults(data.image_results)
         } else {
             setResults(data.results)
         }
 
-        
+
         setIsLoading(false)
     }
 
     return (
-        <ResultContext.Provider value={{ results, searchTerm, isLoading, getResults }}>
+        <ResultContext.Provider value={{ results, searchTerm, isLoading, setSearchTerm, getResults }}>
             {children}
         </ResultContext.Provider>
     )
